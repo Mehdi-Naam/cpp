@@ -1,24 +1,30 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(std::string _name) : Hit_points(100), Energy_points(50), Attack_damage(20) {
+ClapTrap::ClapTrap(std::string _name) : Hit_points(10), Energy_points(10), Attack_damage(0) {
 
 	name = _name;
-	std::cout << name << "ClapTrap constructor called" << std::endl;
+	std::cout << name << ": ClapTrap constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap() {
+ClapTrap::ClapTrap() : Hit_points(10), Energy_points(10), Attack_damage(0) {
+
 	std::cout << "Default ClapTrap constructor called" << std::endl;
 }
 
 ClapTrap::~ClapTrap() {
 
-	std::cout << "Destructor ClapTrap called" << std::endl;
+	std::cout << name << ": Destructor ClapTrap called" << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &opr) {
 
-	if (this != &opr)
-		*this = opr;
+	if (this != &opr) {
+
+		this->name = opr.name;
+		this->Hit_points = opr.Hit_points;
+		this->Hit_points = opr.Attack_damage;
+		this->Hit_points = opr.Energy_points;
+	}
 	return *this;
 }
 
@@ -44,13 +50,13 @@ void	ClapTrap::takeDamage(unsigned int amount) {
 	{
 		amount = 0;
 		this->Hit_points = 0;
-		std::cout << "he is deid" << std::endl;
+		std::cout << name << ": he is deid" << std::endl;
 		return ;
 	}
 	else{
 
 		this->Hit_points -= amount;
-		std::cout << "Take Damage " << amount << std::endl;
+		std::cout << name << ": Take Damage " << amount << std::endl;
 	}
 }
 
@@ -62,10 +68,21 @@ void ClapTrap::beRepaired(unsigned int amount) {
 		this->Energy_points = 0;
 		std::cout << "Be Repaire" << amount << std::endl;
 	}
-	else {
+	else if (Hit_points > 0) {
 
 		this->Energy_points -= 1;
 		this->Hit_points += amount;
 		std::cout << "Be Repaired " << amount << std::endl;
 	}
+	else
+		std::cout << "is already deid -- can't rePaired" << std::endl;
+}
+
+ClapTrap::ClapTrap(const ClapTrap &cpy) {
+
+	name = cpy.name;
+	Hit_points = cpy.Hit_points;
+	Energy_points = cpy.Energy_points;
+	Attack_damage = cpy.Attack_damage;
+	std::cout << name << ": ClapTrap copy constructor called" << std::endl;
 }
