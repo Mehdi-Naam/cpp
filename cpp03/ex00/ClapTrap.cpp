@@ -2,23 +2,28 @@
 
 ClapTrap::ClapTrap(std::string _name) : Hit_points(10), Energy_points(10), Attack_damage(0) {
 
-	std::cout << "constructor name" << std::endl;
 	name = _name;
+	std::cout << name << ": ClapTrap constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap() {
-	std::cout << "constructor" << std::endl;
+	std::cout << "Default ClapTrap constructor called" << std::endl;
 }
 
 ClapTrap::~ClapTrap() {
 
-	std::cout << "distracutor" << std::endl;
+	std::cout << "Default ClapTrap distracutor called" << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &opr) {
 
-	if (this != &opr)
-		*this = opr;
+	if (this != &opr) {
+
+		this->name = opr.name;
+		this->Hit_points = opr.Hit_points;
+		this->Energy_points = opr.Energy_points;
+		this->Attack_damage = opr.Attack_damage;
+	}
 	return *this;
 }
 
@@ -56,16 +61,27 @@ void	ClapTrap::takeDamage(unsigned int amount) {
 
 void ClapTrap::beRepaired(unsigned int amount) {
 
-	if (this->Energy_points <= 0 || (int)amount < 0) {
+	if ((this->Energy_points <= 0 || (int)amount < 0 ) && Hit_points > 0) {
 
 		amount = 0;
 		this->Energy_points = 0;
 		std::cout << "Be Repaired salam " << amount << std::endl;
 	}
-	else {
+	else if (Hit_points > 0) {
 
 		this->Energy_points -= 1;
 		this->Hit_points += amount;
 		std::cout << "Be Repaired " << amount << std::endl;
 	}
+	else
+		std::cout << "is already deid -- can't rePaired" << std::endl;
+}
+
+ClapTrap::ClapTrap(const ClapTrap &cpy) {
+
+	name = cpy.name;
+	Hit_points = cpy.Hit_points;
+	Energy_points = cpy.Energy_points;
+	Attack_damage = cpy.Attack_damage;
+	std::cout << name << ": ClapTrap copy constructor called" << std::endl;
 }

@@ -18,8 +18,12 @@ ClapTrap::~ClapTrap() {
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &opr) {
 
-	if (this != &opr)
-		*this = opr;
+	if (this != &opr) {
+		
+		this->Hit_points = opr.Hit_points;
+		this->Hit_points = opr.Attack_damage;
+		this->Hit_points = opr.Energy_points;
+	}
 	return *this;
 }
 
@@ -63,10 +67,21 @@ void ClapTrap::beRepaired(unsigned int amount) {
 		this->Energy_points = 0;
 		std::cout << "Be Repaired salam " << amount << std::endl;
 	}
-	else {
+	else if (Hit_points > 0) {
 
 		this->Energy_points -= 1;
 		this->Hit_points += amount;
 		std::cout << "Be Repaired " << amount << std::endl;
 	}
+	else
+		std::cout << "is already deid -- can't rePaired" << std::endl;
+}
+
+ClapTrap::ClapTrap(const ClapTrap &cpy) {
+
+	name = cpy.name;
+	Hit_points = cpy.Hit_points;
+	Energy_points = cpy.Energy_points;
+	Attack_damage = cpy.Attack_damage;
+	std::cout << name << ": ClapTrap copy constructor called" << std::endl;
 }
