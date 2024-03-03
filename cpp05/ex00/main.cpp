@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Bureaucrat.hpp"
 
 int main() {
 
@@ -6,9 +7,11 @@ int main() {
 	{
 		Bureaucrat bur;
 		std::cout << bur << std::endl;
-		Bureaucrat bur1("mehdi", 120);
+
+		Bureaucrat bur1("mehdi", 0);
 		bur1.decrement_g();
 		std::cout << bur1 << std::endl;
+
 		Bureaucrat bur2("Zaki", 20);
 		bur2.increment_g();
 		std::cout << bur2 << std::endl;

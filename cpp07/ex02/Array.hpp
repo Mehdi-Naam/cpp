@@ -18,7 +18,7 @@ class Array
 		Array(unsigned int n);
 		Array(const Array & cpy);
 		Array&	operator=(const Array & opr);
-		T&	operator[](unsigned int opr);
+		T&	operator[](unsigned int opr) const;
 		unsigned int	size();
 		~Array();
 };
@@ -60,7 +60,7 @@ Array<T>&	Array<T>::operator=(const Array & opr) {
 }
 
 template < typename T >
-T&	Array<T>::operator[](unsigned int opr) {
+T&	Array<T>::operator[](unsigned int opr) const {
 
 	if (opr > _n) 
 		throw message();

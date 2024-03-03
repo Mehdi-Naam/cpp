@@ -13,8 +13,7 @@ class Bureaucrat
 
 		std::string _name;
 		int			_grade;
-		int			_grade_max;
-		int			_grade_min;
+
 	public:
 
 		class GradeTooHighException : public std::exception {

@@ -40,10 +40,11 @@ void ana_mali(std::vector<int> &jac_s, std::vector<int> &salam) {
 
 void	margesort(std::vector<int> &_vec, std::vector<std::pair<int, int> > &_vec_pair) {
 
+	static int c;
+	std::cout << "here " << c << std::endl;
+	c++;
 	size_t len = _vec.size();
 	if (len <= 2) {
-		// if (len <= 1 )
-		// 	return ;
 		std::pair<int, int> pair_(_vec[0], _vec[1]);
 		_vec_pair.push_back(pair_);
 		return ;
@@ -72,7 +73,7 @@ void	pmergeme(std::vector<int> &_vec) {
 	// 	std::cout << i->first << " | " << i->second << std::endl;
 	std::vector<std::pair<int, int> > _vec_pair;
 	margesort(_vec, _vec_pair);
-	std::cout << "here" << std::endl;
+
 	int size_pair = _vec_pair.size();
 	std::vector<int> jac_s;
 	Jacobsthal(size_pair, jac_s);

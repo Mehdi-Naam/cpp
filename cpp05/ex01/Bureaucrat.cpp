@@ -1,18 +1,13 @@
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat() : _name("allo"), _grade(124) {
-
-	_grade_max = 150;
-	_grade_min = 1;
 }
 
 Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name) , _grade(grade) {
 
-	_grade_max = 150;
-	_grade_min = 1;
-	if (_grade > _grade_max)
+	if (_grade > 150)
 		throw GradeTooLowException();
-	if (_grade < _grade_min)
+	if (_grade < 1)
 		throw GradeTooHighException();
 }
 
@@ -49,14 +44,14 @@ const char* Bureaucrat::GradeTooLowException::what() const throw() {
 
 void	Bureaucrat::increment_g() {
 
-	if (_grade < _grade_min)
+	if (_grade < 1)
 		throw GradeTooHighException();
 	_grade -= 1;
 }
 
 void	Bureaucrat::decrement_g() {
 
-	if (_grade > _grade_max)
+	if (_grade > 150)
 		throw GradeTooLowException();
 	_grade += 1;
 }

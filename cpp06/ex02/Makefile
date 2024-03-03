@@ -13,7 +13,7 @@ all : $(NAME)
 $(NAME) : $(FIL_O)
 		@$(CC) $(FLAGS) $(FIL_O) -o $(NAME)
 
-%.o : %.cpp Base.hpp
+%.o : %.cpp Base.hpp utile.hpp
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean : 

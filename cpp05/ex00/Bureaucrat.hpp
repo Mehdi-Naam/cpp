@@ -1,3 +1,6 @@
+#ifndef __BUREAUCRAT__
+#define __BUREAUCRAT__
+
 #include <iostream>
 
 class Bureaucrat
@@ -6,8 +9,7 @@ class Bureaucrat
 
 		std::string _name;
 		int			_grade;
-		int			_grade_max;
-		int			_grade_min;
+
 	public:
 
 		class GradeTooHighException : public std::exception {
@@ -31,3 +33,5 @@ class Bureaucrat
 };
 
 std::ostream &operator<<(std::ostream &opr, Bureaucrat &bur);
+
+#endif
