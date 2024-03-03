@@ -1,7 +1,7 @@
 import os
 import random
 
-lst = list(range(100))
+lst = list(range(8))
 random.shuffle(lst)
 
 lst = list(map(str, lst))
@@ -14,7 +14,7 @@ os.system ("./PmergeMe " + args  + " > outfile")
 
 
 content = open("outfile").read()
-content = content[content.index("After :") + len("After :"):].strip()
+content = content[content.index("After:") + len("After:"):].strip()
 content = content[:content.index("Time")].strip()
 args    = content.split(" ")
 args    = list(map(int, args))

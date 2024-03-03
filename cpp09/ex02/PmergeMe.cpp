@@ -31,9 +31,6 @@ void gen_jacobs(std::vector<int> &jac_s, std::vector<int> &idx) {
 
 void	margesort(std::vector<int> &_vec, std::vector<std::pair<int, int> > &_vec_pair) {
 
-	static int c;
-	std::cout << "here " << c << std::endl;
-	c++;
 	size_t len = _vec.size();
 	if (len <= 2) {
 		std::pair<int, int> pair_(_vec[0], _vec[1]);

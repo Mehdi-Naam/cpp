@@ -15,29 +15,29 @@ int main(int ac, char *av[]) {
 	
 		int tmp;
 		int flag = 1;
-		if ((ac - 1) != 0) {
-			tmp = std::atoi(av[ac - 1]);
-			flag = 0;
-		}
 	
-		for (int i = 1; i < (ac - 1); i++) {
+		for (int i = 1; i < ac ; i++) {
 		
 			if (isdigit(av[i][0])) {
 				_vec.push_back(std::atoi(av[i]));
 				_dq.push_back(std::atoi(av[i]));
 			}
-			
 			else {
 				std::cout << "Error" << std::endl;
 				return 0;
 			}
 		}
+		if (_vec.size() % 2 != 0) {
+			tmp = _vec[_vec.size() - 1];
+			_vec.pop_back();
+			flag = 0;
+		}
 	
 		clock_t	start = std::clock();
-		pmergeme(_vec);
-		if (!flag) {
+		if (_vec.size() > 1)
+			pmergeme(_vec);
+		if (!flag)
 			temp(tmp, _vec);
-		}
 		clock_t	end = std::clock();
 	
 		clock_t	start_dq = std::clock();
