@@ -1,7 +1,7 @@
 import os
 import random
 
-lst = list(range(8))
+lst = list(range(10000))
 random.shuffle(lst)
 
 lst = list(map(str, lst))

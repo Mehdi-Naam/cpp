@@ -23,7 +23,7 @@ void gen_jacobs(std::vector<int> &jac_s, std::vector<int> &idx) {
 	if (jac_s.size() == 0)
         return;
 
-    for (size_t i = 2; i < jac_s.size(); ++i) {
+    for (size_t i = 1; i < jac_s.size(); ++i) {
         for (int it = jac_s[i]; it > jac_s[i - 1]; --it)
             idx.push_back(it);
     }
@@ -107,7 +107,6 @@ void	sort_pais(std::vector<std::pair<int, int> > &vec_pair) {
 void	marge_all(std::vector<int> &pand, std::vector<int> &main, std::vector<int> &_vec, std::vector<int> &idx) {
 
 	_vec.clear();
-	_vec.push_back(pand[0]);
 	for (size_t i = 0; i < main.size(); i++) {
 		_vec.push_back(main[i]);
 	}
@@ -123,15 +122,22 @@ void	marge_all(std::vector<int> &pand, std::vector<int> &main, std::vector<int> 
 void	display(std::vector<int> &_vec, std::deque<int> &_dq, double clck_dq, double clck) {
 
 	(void)_dq;
+	static int flag;
 	std::vector<int> ::const_iterator itss = _vec.begin();
 	std::vector<int> ::const_iterator itess = _vec.end();
-	std::cout << "After:	" << std::flush;
+	if (!flag)
+		std::cout << "Before:	" << std::flush;
+	else
+		std::cout << "After:	" << std::flush;
 	for (std::vector<int>::const_iterator i = itss; i != itess; ++i)
 		std::cout << *i << " " << std::flush;
 	std::cout << std::endl;
-	std::cout << "Time to process a range of 5 elements with std::vector : " << std::fixed << clck << std::endl;
-	std::cout << "Time to process a range of 5 elements with std::deque : " << std::fixed << clck_dq << std::endl;
-	
+	if (flag) {
+
+		std::cout << "Time to process a range of 5 elements with std::vector : " << std::fixed << clck << std::endl;
+		std::cout << "Time to process a range of 5 elements with std::deque : " << std::fixed << clck_dq << std::endl;
+	}
+	flag++;
 }
 
 void	pmergeme(std::vector<int> &_vec) {
@@ -179,7 +185,7 @@ void gen_jacobs(std::deque<int> &jac_s, std::deque<int> &idx) {
 	if (jac_s.size() == 0)
         return;
 
-    for (size_t i = 2; i < jac_s.size(); ++i) {
+    for (size_t i = 1; i < jac_s.size(); ++i) {
         for (int it = jac_s[i]; it > jac_s[i - 1]; --it)
             idx.push_back(it);
     }
@@ -257,7 +263,6 @@ void	sort_pais(std::deque<std::pair<int, int> > &dq_pair) {
 void	marge_all(std::deque<int> &pand, std::deque<int> &main, std::deque<int> &_dq, std::deque<int> &idx) {
 
 	_dq.clear();
-	_dq.push_back(pand[0]);
 	for (size_t i = 0; i < main.size(); i++) {
 		_dq.push_back(main[i]);
 	}

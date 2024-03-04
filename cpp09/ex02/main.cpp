@@ -3,12 +3,7 @@
 int main(int ac, char *av[]) {
 
 	if (ac > 1) {
-	
-		std::cout << "Before:	" << std::flush;
-		for (int i = 1; i < ac; i++)
-			std::cout << av[i] << " " << std::flush;
-		std::cout << std::endl;
-	
+		
 		std::vector<int> _vec;
 
 		std::deque<int> _dq;
@@ -33,6 +28,7 @@ int main(int ac, char *av[]) {
 			flag = 0;
 		}
 	
+		display(_vec , _dq, 0, 0);
 		clock_t	start = std::clock();
 		if (_vec.size() > 1)
 			pmergeme(_vec);
