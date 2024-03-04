@@ -294,7 +294,7 @@ void	temp(int &tmp, std::deque<int> &_vec) {
 void	pmergeme_dq(std::deque<int> &_dq) {
 
 	if (!parsing(_dq))
-		return ;
+		exit (1);
 	std::deque<std::pair<int, int> > _dq_pair;
 	margesort(_dq, _dq_pair);
 	sort_pais(_dq_pair);

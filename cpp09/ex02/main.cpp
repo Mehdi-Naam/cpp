@@ -1,5 +1,14 @@
 #include "PmergeMe.hpp"
 
+int	ft_isdigit(std::string _av) {
+
+	for (size_t i = 0; i < _av.length(); i++) {
+		if (!isdigit(_av[i]))
+			return 0;
+	}
+	return 1;
+}
+
 int main(int ac, char *av[]) {
 
 	if (ac > 1) {
@@ -13,21 +22,23 @@ int main(int ac, char *av[]) {
 	
 		for (int i = 1; i < ac ; i++) {
 		
-			if (isdigit(av[i][0])) {
+			if (ft_isdigit(av[i])) {
 				_vec.push_back(std::atoi(av[i]));
 				_dq.push_back(std::atoi(av[i]));
 			}
 			else {
-				std::cout << "Error" << std::endl;
+				std::cout << "Error: we have a non digit" << std::endl;
 				return 0;
 			}
 		}
+		if (!parsing(_dq) || !parsing(_vec))
+			exit (1);
 		if (_vec.size() % 2 != 0) {
 			tmp = _vec[_vec.size() - 1];
 			_vec.pop_back();
 			flag = 0;
 		}
-	
+
 		display(_vec , _dq, 0, 0);
 		clock_t	start = std::clock();
 		if (_vec.size() > 1)
