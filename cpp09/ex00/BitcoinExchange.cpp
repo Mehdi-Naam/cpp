@@ -38,6 +38,10 @@ int		day(std::string dy, std::string &mat, std::string &year) {
 		if (!isdigit(dy[i]))
 			return 0;
 	}
+	for (size_t i = 0; i < year.length(); i++) {
+		if (!isdigit(year[i]))
+			return 0;
+	}
 	int check = std::atoi(dy.c_str());
 	if (arr[std::atoi(mat.c_str())] < check || check <= 0)
 		return 0;
@@ -77,7 +81,7 @@ int		parsing_date(std::string date) {
 int		parsing_valour(std::string &val) {
 
 	for (size_t i = 0; i < val.length(); i++) {
-		if (val[i] == '.' && val[i + 1] == '.') {
+		if ((val[i] == '.' && val[i + 1] == '.')) {
 			
 			std::cout << "Error: bed input [" << val << "]" << std::endl;
 			return 0;
@@ -85,12 +89,6 @@ int		parsing_valour(std::string &val) {
 	}
 	float valour = std::atof(val.c_str());
 	float check = valour;
-	if (check == 0) {
-
-		std::cout << "Error: bed input" << std::endl;
-		return 0;
-	}
-
 	if (check < 0) {
 
 		std::cout << "Error: not a positive number." << std::endl;
@@ -124,7 +122,7 @@ void	BitcoinExchange(std::string _av, std::map<std::string, float> &map) {
 		
 			int befor_pip = line.find('|', 0);
 			std::string date = line.substr(0, befor_pip - 1);
-			std::string val = line.substr(befor_pip + 2, line.length());
+			std::string val = line.substr(befor_pip + 1, line.length());
 			if (parsing_date(date) && parsing_valour(val)) {
 				float valour = std::atof(val.c_str());
 				std::map<std::string, float>::iterator iter = map.lower_bound(date);
@@ -150,6 +148,10 @@ void	data_(std::map<std::string, float> &map) {
 			int befor_pip = line.find(',', 0);
 			std::string date = line.substr(0, befor_pip);
 			std::string val = line.substr(befor_pip + 1, line.length());
+			if (val.empty() || val.compare(" ")) {
+				std::cout << "Error: Empty valour" << std::endl;
+				return ;
+			}
 			float valour = std::atof(val.c_str());
 			map[date] = valour;
 			static int i;

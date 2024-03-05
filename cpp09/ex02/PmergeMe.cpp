@@ -1,6 +1,15 @@
 #include "PmergeMe.hpp"
-#include <unistd.h>
 
+int	ft_isdigit(std::string _av) {
+
+	if (_av.empty())
+		return 0;
+	for (size_t i = 0; i < _av.length(); i++) {
+		if (!isdigit(_av[i]))
+			return 0;
+	}
+	return 1;
+}
 
 void	Jacobsthal(int	&size, std::vector<int> &jac) {
 
@@ -129,7 +138,7 @@ void	display(std::vector<int> &_vec, std::deque<int> &_dq, double clck_dq, doubl
 		std::cout << "Before:	" << std::flush;
 	else
 		std::cout << "After:	" << std::flush;
-	for (std::vector<int>::const_iterator i = itss; i != itess; ++i)
+	for (std::vector<int>::const_iterator i = itss; i != itess; i++)
 		std::cout << *i << " " << std::flush;
 	std::cout << std::endl;
 	if (flag) {
@@ -142,11 +151,8 @@ void	display(std::vector<int> &_vec, std::deque<int> &_dq, double clck_dq, doubl
 
 void	pmergeme(std::vector<int> &_vec) {
 
-	if (!parsing(_vec))
-		return ;
 	std::vector<std::pair<int, int> > _vec_pair;
 	margesort(_vec, _vec_pair);
-
 	sort_pais(_vec_pair);
 	std::vector<int> pand;
 	std::vector<int> main;
@@ -293,8 +299,6 @@ void	temp(int &tmp, std::deque<int> &_vec) {
 
 void	pmergeme_dq(std::deque<int> &_dq) {
 
-	if (!parsing(_dq))
-		exit (1);
 	std::deque<std::pair<int, int> > _dq_pair;
 	margesort(_dq, _dq_pair);
 	sort_pais(_dq_pair);

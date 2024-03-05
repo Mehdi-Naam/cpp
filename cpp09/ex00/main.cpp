@@ -14,10 +14,18 @@ int main(int ac, char *av[]) {
 
 	if (ac != 1) {
 		std::map<std::string, float> map;
+		std::string _av = av[1];
+		if (_av.compare("input.txt")) {
+			std::cout << "Error: '" << _av << "'" << std::endl;
+			return 0;
+		}
 		data_(map);
-		// dispaly(map);
-		// (void)av;
-		BitcoinExchange(av[1], map);
+		BitcoinExchange(_av, map);
 	}
 	return 0;
 }
+
+/*
+	if the value is not a true_Number exception 
+
+*/

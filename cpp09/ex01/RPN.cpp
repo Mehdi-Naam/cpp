@@ -37,7 +37,7 @@ int	check_condition(char &check, std::stack<int>& stc) {
 		stc.push(check - 48);
 	}
 	else {
-		std::cout << "Error" << std::endl;
+		std::cout << "0" << std::endl;
 		return 0;
 	}
 	return 1;
@@ -50,11 +50,14 @@ void	RPN(std::string _av) {
 
 	if ( _av.find(' ', 0) != std::string::npos) {
 		for (size_t x = 0; x < _av.length(); x++) {
-	
+			if (_av.length() <= 2) {
+				std::cout << "Error" << std::endl;
+				return ;
+			}
 			if (isdigit(_av[x]) && _av[x + 1] != ' ')
 				return ;
 			if(check_condition(_av[x], stc) == 0)
-				return;
+				return ;
 		}
 	}
 	else

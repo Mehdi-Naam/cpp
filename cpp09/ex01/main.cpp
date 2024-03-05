@@ -9,3 +9,8 @@ int main(int ac, char *av[]) {
 		std::cout << "bed Input" << std::endl;
 	return 0;
 }
+
+/*
+
+	"5 " --> error or 0
+*/

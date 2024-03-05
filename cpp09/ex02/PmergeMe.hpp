@@ -15,5 +15,6 @@ void	temp(int &tmp, std::vector<int> &_vec);
 void	temp(int &tmp, std::deque<int> &_vec);
 int		parsing(std::deque<int> &_dq);
 int		parsing(std::vector<int> &_vec);
+int		ft_isdigit(std::string _av);
 
 #endif
