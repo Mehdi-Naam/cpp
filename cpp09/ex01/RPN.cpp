@@ -37,7 +37,7 @@ int	check_condition(char &check, std::stack<int>& stc) {
 		stc.push(check - 48);
 	}
 	else {
-		std::cout << "0" << std::endl;
+		std::cout << "Error" << std::endl;
 		return 0;
 	}
 	return 1;

@@ -38,7 +38,7 @@ int		day(std::string dy, std::string &mat, std::string &year) {
 	int	arr[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	if (checkYear(std::atoi(year.c_str())))
 		arr[2] = 29;
-	if (std::atoi(year.c_str()) < 2009 && std::atoi(mat.c_str()) < 1 && std::atoi(dy.c_str()) < 2)
+	if (std::atoi(year.c_str()) < 2009 || std::atoi(mat.c_str()) < 1 || std::atoi(dy.c_str()) < 2)
 		return 0;
 	for (size_t i = 0; i < dy.length(); i++) {
 		if (!isdigit(dy[i]))
@@ -103,6 +103,14 @@ int		parsing_valour(std::string &val) {
 	for (size_t i = 0; i < val.length(); i++) {
 		if (val[i] != ' ' && val[i] != '.' && !isdigit(val[i])) {
 			
+			std::cout << "Error: bed input [" << val << "]" << std::endl;
+			return 0;
+		}
+		if (val[i] == ' ' && val[i + 1] == '\0') {
+			std::cout << "Error: bed input [" << val << "]" << std::endl;
+			return 0;
+		}
+		if (val[i] == '.' && val[i + 1] == '\0') {
 			std::cout << "Error: bed input [" << val << "]" << std::endl;
 			return 0;
 		}
