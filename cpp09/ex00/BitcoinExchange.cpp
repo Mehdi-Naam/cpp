@@ -1,5 +1,5 @@
-
 #include "BitcoinExchange.hpp"
+#include <cctype>
 
 int checkYear(int year)
 {
@@ -17,6 +17,8 @@ int checkYear(int year)
 
 int		manth(std::string mat) {
 
+	if (mat.length() != 2)
+		return 0;
 	for (size_t i = 0; i < mat.length(); i++) {
 		if (!isdigit(mat[i]))
 			return 0;
@@ -29,10 +31,14 @@ int		manth(std::string mat) {
 
 int		day(std::string dy, std::string &mat, std::string &year) {
 
+	if (dy.length() != 2)
+		return 0;
+	if (year.length() != 4)
+		return 0;
 	int	arr[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	if (checkYear(std::atoi(year.c_str())))
 		arr[2] = 29;
-	if (std::atoi(year.c_str()) < 2009 || std::atoi(mat.c_str()) < 1 || std::atoi(dy.c_str()) < 2)
+	if (std::atoi(year.c_str()) < 2009 && std::atoi(mat.c_str()) < 1 && std::atoi(dy.c_str()) < 2)
 		return 0;
 	for (size_t i = 0; i < dy.length(); i++) {
 		if (!isdigit(dy[i]))
@@ -78,10 +84,24 @@ int		parsing_date(std::string date) {
 	return 1;
 }
 
+int		check_point(std::string &val) {
+
+	int flag = 0;
+	for (size_t i = 0; i < val.length(); i++) {
+		if (val[i] == '.')
+			flag++;
+	}
+	return flag;
+}
+
 int		parsing_valour(std::string &val) {
 
+	if (check_point(val) > 1) {
+		std::cout << "Error: bed1 input [" << val << "]" << std::endl;
+		return 0;
+	}
 	for (size_t i = 0; i < val.length(); i++) {
-		if ((val[i] == '.' && val[i + 1] == '.')) {
+		if (val[i] != ' ' && val[i] != '.' && !isdigit(val[i])) {
 			
 			std::cout << "Error: bed input [" << val << "]" << std::endl;
 			return 0;
@@ -102,6 +122,15 @@ int		parsing_valour(std::string &val) {
 	return 1;
 }
 
+size_t	spc(std::string &line) {
+	size_t i;
+	for (i = 0; i < line.length(); i++) {
+		if (line[i] != ' ' && line[i] != '\t')
+			break;
+	}
+	return i;
+}
+
 void	BitcoinExchange(std::string _av, std::map<std::string, float> &map) {
 
 	std::ifstream	infile;
@@ -118,11 +147,19 @@ void	BitcoinExchange(std::string _av, std::map<std::string, float> &map) {
 		infile.open(_av);
 	}
 	while (getline(infile, line, '\n')) {
-		if (line.find('|', 0) != std::string::npos) {
-		
-			int befor_pip = line.find('|', 0);
-			std::string date = line.substr(0, befor_pip - 1);
+		if (line.empty())
+			continue ;
+		size_t i = spc(line);
+		if (i == line.length())
+			continue ;
+		if (line.find('|', i) != std::string::npos) {
+			int befor_pip = line.find('|', i);
+			std::string date = line.substr(i, befor_pip - i - 1);
 			std::string val = line.substr(befor_pip + 1, line.length());
+			if (val.empty()) {
+				std::cout << "Error: Empty valour" << std::endl;
+				continue ;
+			}
 			if (parsing_date(date) && parsing_valour(val)) {
 				float valour = std::atof(val.c_str());
 				std::map<std::string, float>::iterator iter = map.lower_bound(date);
@@ -148,16 +185,8 @@ void	data_(std::map<std::string, float> &map) {
 			int befor_pip = line.find(',', 0);
 			std::string date = line.substr(0, befor_pip);
 			std::string val = line.substr(befor_pip + 1, line.length());
-			if (val.empty() || val.compare(" ")) {
-				std::cout << "Error: Empty valour" << std::endl;
-				return ;
-			}
 			float valour = std::atof(val.c_str());
 			map[date] = valour;
-			static int i;
-			if (i == 2)
-				return;
-			i++;
 		}
 	}
 }

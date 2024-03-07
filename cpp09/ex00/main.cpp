@@ -24,8 +24,3 @@ int main(int ac, char *av[]) {
 	}
 	return 0;
 }
-
-/*
-	if the value is not a true_Number exception 
-
-*/

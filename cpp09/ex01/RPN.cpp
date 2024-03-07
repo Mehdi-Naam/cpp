@@ -54,16 +54,18 @@ void	RPN(std::string _av) {
 				std::cout << "Error" << std::endl;
 				return ;
 			}
-			if (isdigit(_av[x]) && _av[x + 1] != ' ')
+			if (isdigit(_av[x]) && _av[x + 1] != ' ') {
+				std::cout << "Error" << std::endl;
 				return ;
+			}
 			if(check_condition(_av[x], stc) == 0)
 				return ;
 		}
 	}
-	else
-		std::cout << "we dont have a spc!!" << std::endl;
 	if (stc.size() == 1)
 		std::cout << stc.top() << std::endl;
+	else if (_av.length() == 1 && isdigit(_av[0]))
+		std::cout << _av << std::endl;
 	else
 		std::cout << "Error" << std::endl;
 }
