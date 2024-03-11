@@ -2,7 +2,6 @@
 
 void	check_condition(char &check, std::stack<int>& stc) {
 
-	// std::cout << "here" << std::endl;
 	if (check == '+' && stc.size() > 1) {
 		int a = stc.top();
 		stc.pop();
@@ -32,11 +31,8 @@ void	check_condition(char &check, std::stack<int>& stc) {
 		if (a != 0)
 			stc.push(b / a);
 	}
-	// else if (isdigit(check)) {
-	// 	stc.push(check - 48);
-	// }
 	else {
-		std::cout << "Error1" << std::endl;
+		std::cout << "Error" << std::endl;
 		exit (1);
 	}
 }
@@ -80,21 +76,21 @@ void	RPN(std::string _av) {
 	
 		int pos = _av.find(' ', start);
 		std::string str = _av.substr(start, pos - start);
-		// std::cout << "str: '" << str << "'" << std::endl;
 		if (is_true_num(str))
 			stc.push(std::atoi(str.c_str()));
 		else if (check_sing(str))
 			check_condition(str[0], stc);
 		else {
-			std::cout << "Error2" << std::endl;
+			std::cout << "Error" << std::endl;
 			exit(1);
 		}
 		std::string ptr_s = _av.c_str() + pos;
 		start = pos + spc(ptr_s);
 	}
-	// std::cout << "size: " << stc.size() << std::endl;
 	if (stc.size() == 1)
 		std::cout << stc.top() << std::endl;
-	else
-		std::cout << "Error3" << std::endl;
+	else {
+		std::cout << "Error" << std::endl;
+		exit(1);
+	}
 }

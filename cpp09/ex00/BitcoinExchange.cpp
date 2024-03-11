@@ -31,10 +31,6 @@ int		manth(std::string mat) {
 
 int		day(std::string dy, std::string &mat, std::string &year) {
 
-	if (dy.length() != 2)
-		return 0;
-	if (year.length() != 4)
-		return 0;
 	int	arr[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	if (checkYear(std::atoi(year.c_str())))
 		arr[2] = 29;
@@ -65,7 +61,10 @@ int		parsing_date(std::string date) {
 		i++;
 	}
 	std::string year = date.substr(0, i);
-
+	if (year.length() != 4) {
+		std::cout << "Error: in year." << std::endl;
+		return 0;
+	}
 	int befor_dach = date.find('-', 0);
 	int it = befor_dach + 1;
 	while (date[it] != '-')
@@ -78,45 +77,21 @@ int		parsing_date(std::string date) {
 	std::string dy = date.substr(it + 1, date.length());
 	if (!day(dy, mat, year) || (dy.length() > 2)) {
 
-		std::cout << "Error: in day." << std::endl;
+		std::cout << "Error2: in day." << dy << std::endl;
 		return 0;
 	}
 	return 1;
 }
 
-int		check_point(std::string &val) {
-
-	int flag = 0;
-	for (size_t i = 0; i < val.length(); i++) {
-		if (val[i] == '.')
-			flag++;
-	}
-	return flag;
-}
-
 int		parsing_valour(std::string &val) {
 
-	if (check_point(val) > 1) {
-		std::cout << "Error: bed1 input [" << val << "]" << std::endl;
+	char *ptr_d;
+	float check = std::strtod(val.c_str(), &ptr_d);
+	if (*ptr_d)
+	{
+		std::cout << "Error: bad input" << std::endl;
 		return 0;
 	}
-	for (size_t i = 0; i < val.length(); i++) {
-		if (val[i] != ' ' && val[i] != '.' && !isdigit(val[i])) {
-			
-			std::cout << "Error: bed input [" << val << "]" << std::endl;
-			return 0;
-		}
-		if (val[i] == ' ' && val[i + 1] == '\0') {
-			std::cout << "Error: bed input [" << val << "]" << std::endl;
-			return 0;
-		}
-		if (val[i] == '.' && val[i + 1] == '\0') {
-			std::cout << "Error: bed input [" << val << "]" << std::endl;
-			return 0;
-		}
-	}
-	float valour = std::atof(val.c_str());
-	float check = valour;
 	if (check < 0) {
 
 		std::cout << "Error: not a positive number." << std::endl;
