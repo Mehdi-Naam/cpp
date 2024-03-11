@@ -1,9 +1,8 @@
 #include "RPN.hpp"
 
-int	check_condition(char &check, std::stack<int>& stc) {
+void	check_condition(char &check, std::stack<int>& stc) {
 
-	if (check == ' ')
-		return 1;
+	// std::cout << "here" << std::endl;
 	if (check == '+' && stc.size() > 1) {
 		int a = stc.top();
 		stc.pop();
@@ -33,39 +32,69 @@ int	check_condition(char &check, std::stack<int>& stc) {
 		if (a != 0)
 			stc.push(b / a);
 	}
-	else if (isdigit(check)) {
-		stc.push(check - 48);
-	}
+	// else if (isdigit(check)) {
+	// 	stc.push(check - 48);
+	// }
 	else {
-		std::cout << "Error" << std::endl;
-		return 0;
+		std::cout << "Error1" << std::endl;
+		exit (1);
 	}
+}
+
+int is_true_num(std::string &str) {
+
+	size_t j = 0;
+	if ((str[j] == '-' || str[j] == '+'))
+		j++;
+	for (size_t i = j; i < str.length(); i++) {
+		if (!isdigit(str[i]))
+			return 0;
+	}
+	if (j == str.length() || atoi(str.c_str()) >= 10)
+		return 0;
 	return 1;
 }
 
+size_t	spc(std::string &str) {
+	size_t i = 0;
+	for (i = 0; i < str.length(); i++) {
+		if (str[i] != ' ' && str[i] != '\t')
+			break;
+	}
+	return i;
+}
+
+int check_sing(const std::string &str) {
+
+	if (str.length() == 1)
+		if (str[0] == '-' || str[0] == '+' || str[0] == '*' || str[0] == '/')
+			return 1;
+	return 0;
+}
 
 void	RPN(std::string _av) {
 
 	std::stack<int> stc;
-
-	if ( _av.find(' ', 0) != std::string::npos) {
-		for (size_t x = 0; x < _av.length(); x++) {
-			if (_av.length() <= 2) {
-				std::cout << "Error" << std::endl;
-				return ;
-			}
-			if (isdigit(_av[x]) && _av[x + 1] != ' ') {
-				std::cout << "Error" << std::endl;
-				return ;
-			}
-			if(check_condition(_av[x], stc) == 0)
-				return ;
+	size_t start = spc(_av);
+	while (start < _av.length()) {
+	
+		int pos = _av.find(' ', start);
+		std::string str = _av.substr(start, pos - start);
+		// std::cout << "str: '" << str << "'" << std::endl;
+		if (is_true_num(str))
+			stc.push(std::atoi(str.c_str()));
+		else if (check_sing(str))
+			check_condition(str[0], stc);
+		else {
+			std::cout << "Error2" << std::endl;
+			exit(1);
 		}
+		std::string ptr_s = _av.c_str() + pos;
+		start = pos + spc(ptr_s);
 	}
+	// std::cout << "size: " << stc.size() << std::endl;
 	if (stc.size() == 1)
 		std::cout << stc.top() << std::endl;
-	else if (_av.length() == 1 && isdigit(_av[0]))
-		std::cout << _av << std::endl;
 	else
-		std::cout << "Error" << std::endl;
+		std::cout << "Error3" << std::endl;
 }
